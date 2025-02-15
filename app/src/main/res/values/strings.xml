@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">食物识别</string>
+    
+    <!-- 通用 -->
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    
+    <!-- 主页面 -->
+    <string name="take_photo">拍照识别</string>
+    <string name="select_photo">从相册选择</string>
+    <string name="history">历史记录</string>
+    <string name="profile">个人中心</string>
+    
+    <!-- 识别结果 -->
+    <string name="recognition_result">识别结果</string>
+    <string name="food_name">食物名称</string>
+    <string name="calories">卡路里</string>
+    <string name="protein">蛋白质</string>
+    <string name="carbs">碳水化合物</string>
+    <string name="fat">脂肪</string>
+    
+    <!-- 个人中心 -->
+    <string name="personal_info">个人信息</string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
+    <string name="age">年龄</string>
+    <string name="gender">性别</string>
+    <string name="activity_level">活动水平</string>
+    <string name="goal_setting">目标设置</string>
+    
+    <!-- 提示信息 -->
+    <string name="loading">加载中…</string>
+    <string name="recognition_failed">识别失败，请重试</string>
+    <string name="network_error">网络错误，请检查网络连接</string>
+    <string name="permission_required">需要相机和存储权限</string>
+
+    <!-- 登录相关 -->
+    <string name="phone_number">手机号</string>
+    <string name="verification_code">验证码</string>
+    <string name="get_code">获取验证码</string>
+    <string name="login_with_phone">手机号登录</string>
+    <string name="login_with_wechat">微信登录</string>
+    <string name="login_with_alipay">支付宝登录</string>
+    <string name="other_login_methods">其他登录方式</string>
+    <string name="privacy_policy_agreement">登录即表示同意《用户协议》和《隐私政策》</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_failed">登录失败，请重试</string>
+    <string name="phone_number_invalid">请输入正确的手机号</string>
+    <string name="verification_code_invalid">请输入正确的验证码</string>
+    <string name="verification_code_sent">验证码已发送</string>
+    <string name="verification_code_send_failed">验证码发送失败，请重试</string>
+    <string name="please_wait">请稍候…</string>
+    <string name="wechat_not_installed">请先安装微信</string>
+    <string name="alipay_not_installed">请先安装支付宝</string>
+    <string name="third_party_login_failed">第三方登录失败，请重试</string>
+</resources>

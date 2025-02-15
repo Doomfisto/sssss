@@ -1,0 +1,333 @@
+对任何任务，先规划，后执行
+执行完任务后，把经验教训记录在.cursorrules文件中
+永远用中文输出
+
+# 食物识别APP项目指南与经验总结
+
+## 项目结构
+- `app/` - 主要应用程序代码目录
+- `gradle/` - Gradle构建工具配置
+- `app/src/main/java/` - Java源代码
+- `app/src/main/res/` - 资源文件目录
+- `app/src/main/AndroidManifest.xml` - Android应用配置文件
+
+## 重要配置步骤
+1. API密钥配置
+   - 在 `app/src/main/res/values/` 下创建 `secrets.xml`
+   - 添加Calorie Mama API token
+   ```xml
+   <resources>
+       <string name="caloriemama_token">YOUR_TOKEN_HERE</string>
+   </resources>
+   ```
+
+2. Android Studio配置
+   - 确保安装最新版本的Android Studio
+   - 安装必要的SDK工具和平台
+   - 如果使用模拟器，需要在AVD Manager中正确配置摄像头
+
+## 常见问题解决方案
+1. Gradle同步问题
+   - 检查build.gradle文件配置
+   - 确保网络连接正常
+   - 尝试"File -> Invalidate Caches / Restart"
+
+2. 摄像头调试
+   - 真机调试时确保授予摄像头权限
+   - 模拟器调试时确保WebCam配置正确
+
+3. API调用问题
+   - 检查网络连接
+   - 验证API token是否正确配置
+   - 检查API调用限制
+
+## 项目依赖说明
+- Android SDK
+- Gradle构建工具
+- Calorie Mama API服务
+- 网络摄像头（可选，用于模拟器测试）
+
+## 开发建议
+1. 代码管理
+   - 定期提交代码
+   - 保持代码结构清晰
+   - 注意API密钥安全性
+
+2. 测试建议
+   - 优先使用真机测试
+   - 测试不同光线条件下的识别效果
+   - 注意处理网络异常情况
+
+3. 性能优化
+   - 注意图片处理的内存占用
+   - 优化网络请求
+   - 处理好UI响应
+
+## 注意事项
+1. 安全性
+   - 不要将API密钥提交到版本控制
+   - 注意用户数据保护
+   - 做好异常处理
+
+2. 兼容性
+   - 测试不同Android版本
+   - 注意屏幕适配
+   - 考虑不同设备性能差异
+
+## 有用的资源链接
+- Calorie Mama API文档: https://dev.caloriemama.ai
+- Android开发文档: https://developer.android.com
+- Gradle文档: https://gradle.org/docs/
+
+## 项目改进方向
+1. 界面优化
+   - 添加加载动画
+   - 优化用户交互流程
+   - 增加结果展示效果
+
+2. 功能扩展
+   - 添加历史记录
+   - 支持多语言
+   - 添加营养成分分析
+
+3. 性能提升
+   - 图片压缩优化
+   - 缓存机制
+   - 离线识别支持
+
+## 食物卡路里识别APP开发框架
+
+### 1. 界面交互设计
+
+#### 主要界面布局和流程
+- 启动页：品牌展示，权限请求
+- 主页面：相机/图库入口，历史记录，个人中心
+- 识别结果页：食物信息，营养数据，保存/分享
+- 个人中心：用户信息，目标设置，数据统计
+
+#### 核心功能组件
+- 相机组件：`CameraX` API集成
+- 图片选择器：支持多图选择
+- 结果展示卡片：MaterialCardView
+- 数据图表：MPAndroidChart库
+
+#### 用户操作流程
+1. 启动APP → 权限授权
+2. 拍照/选图 → 上传分析
+3. 查看结果 → 编辑确认
+4. 保存记录 → 查看统计
+
+#### 界面风格指南
+- 配色方案：
+  - 主色：#2196F3
+  - 强调色：#FF4081
+  - 背景色：#FFFFFF
+- 字体规范：
+  - 标题：Roboto-Bold 20sp
+  - 正文：Roboto-Regular 16sp
+  - 说明：Roboto-Light 14sp
+
+### 2. 食物识别系统
+
+#### 输入规范
+- 图片格式：JPEG/PNG
+- 最大尺寸：1920x1080
+- 最小尺寸：480x360
+- 文件大小：<5MB
+
+#### 处理流程
+1. 图像预处理
+   - 压缩优化
+   - 光线校正
+   - 角度校正
+2. AI识别（Calorie Mama API）
+   - 食物类型识别
+   - 份量估算
+   - 可信度计算
+
+#### 输出规范
+- 食物信息：
+  ```json
+  {
+    "food_name": "string",
+    "category": "string",
+    "portion": "number",
+    "unit": "string",
+    "confidence": "float"
+  }
+  ```
+
+### 3. 营养计算系统
+
+#### 用户信息模型
+```json
+{
+  "user_info": {
+    "gender": "string",
+    "age": "integer",
+    "height": "float",
+    "weight": "float",
+    "activity_level": "float"
+  },
+  "goal_settings": {
+    "target_calories": "integer",
+    "weight_goal": "string",
+    "weekly_change": "float"
+  }
+}
+```
+
+#### 计算公式
+- 基础代谢率(BMR)：
+  - 男性：10 × 体重 + 6.25 × 身高 - 5 × 年龄 + 5
+  - 女性：10 × 体重 + 6.25 × 身高 - 5 × 年龄 - 161
+- 每日消耗热量 = BMR × 活动系数
+- 营养素比例：
+  - 蛋白质：30%
+  - 碳水化合物：40%
+  - 脂肪：30%
+
+### 4. 每日追踪系统
+
+#### 数据库设计
+```sql
+CREATE TABLE daily_records (
+    id INTEGER PRIMARY KEY,
+    date TEXT,
+    meal_type TEXT,
+    food_name TEXT,
+    calories INTEGER,
+    protein FLOAT,
+    carbs FLOAT,
+    fat FLOAT
+);
+```
+
+#### 统计分析
+- 实时计算：
+  - 已摄入热量
+  - 剩余热量
+  - 营养素完成度
+- 数据展示：
+  - 环形进度条
+  - 营养素分布图
+  - 时间轴视图
+
+### 5. 数据分析系统
+
+#### 分析维度
+- 时间维度：日/周/月/季
+- 营养维度：热量/蛋白质/碳水/脂肪
+- 目标维度：完成率/达标天数
+
+#### 数据可视化
+- 折线图：趋势分析
+- 饼图：营养素分布
+- 柱状图：目标完成度
+- 雷达图：营养均衡度
+
+### 6. 用户交互系统
+
+#### 数据验证规则
+- 用户输入：
+  - 身高：100-250cm
+  - 体重：30-200kg
+  - 年龄：14-100岁
+- 食物记录：
+  - 单次重量：0-1000g
+  - 热量范围：0-2000kcal
+
+#### 提醒系统
+- 定时提醒：
+  - 用餐时间
+  - 记录提醒
+  - 目标达成
+- 营养警告：
+  - 过量提醒
+  - 不足提醒
+  - 均衡建议
+
+### 异常处理机制
+
+#### 网络异常
+```java
+try {
+    // API调用
+} catch (NetworkException e) {
+    // 1. 本地缓存
+    // 2. 离线模式
+    // 3. 重试机制
+}
+```
+
+#### 识别失败
+```java
+if (confidence < 0.6) {
+    // 1. 建议重新拍摄
+    // 2. 手动选择
+    // 3. 相似推荐
+}
+```
+
+### 性能优化建议
+
+1. 图片处理
+   - 压缩算法优化
+   - 缓存机制
+   - 后台处理
+
+2. 数据存储
+   - 索引优化
+   - 分表策略
+   - 定期清理
+
+3. UI渲染
+   - 视图重用
+   - 延迟加载
+   - 异步更新
+
+### 安全措施
+
+1. 数据加密
+   - 用户信息：AES-256
+   - 传输加密：HTTPS
+   - 本地存储：SQLCipher
+
+2. 隐私保护
+   - 权限最小化
+   - 数据脱敏
+   - 用户授权
+
+## 项目故障排查经验
+
+### 常见问题原因
+1. 项目配置不完整
+   - Android SDK路径配置错误
+   - Gradle版本不匹配
+   - 依赖版本冲突
+
+2. 数据库问题
+   - Room数据库迁移失败
+   - 数据库版本管理不当
+   - 表结构定义错误
+
+3. IDE相关问题
+   - Android Studio版本兼容性
+   - Gradle同步失败
+   - 缓存问题
+
+### 解决方案
+1. 配置检查
+   - 验证local.properties中SDK路径
+   - 检查build.gradle依赖版本
+   - 确认AndroidManifest.xml配置
+
+2. 项目清理
+   - Clean Project
+   - Invalidate Caches / Restart
+   - 删除.gradle缓存
+
+3. 数据库维护
+   - 正确处理数据库迁移
+   - 定期备份数据
+   - 版本号管理 
